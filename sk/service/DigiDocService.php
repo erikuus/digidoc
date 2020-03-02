@@ -31,7 +31,7 @@ final class DigiDocService
 
     /**
      * In here the SOAP Client is initiated for communication with DigiDocService.
-     * @param string $location DigiDocService location
+     * @param string $location DigiDocService location.
      */
     private function __construct($location)
     {
@@ -89,7 +89,6 @@ final class DigiDocService
             }
 
             throw new SoapClientException($response['Status']);
-
         } catch (\Exception $e) {
             $this->propagateSoapException($e, $serviceName);
         }

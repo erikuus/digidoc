@@ -1,9 +1,9 @@
 <?php
-ini_set('display_errors','On');
+ini_set('display_errors', 'On');
 ini_set('error_reporting', E_ERROR);
 
-ini_set('soap.wsdl_cache_enabled',0);
-ini_set('soap.wsdl_cache_ttl',0);
+ini_set('soap.wsdl_cache_enabled', 0);
+ini_set('soap.wsdl_cache_ttl', 0);
 
 // Service name for the MID services in DDS(Will be displayed to users mobile phones screen during signing process)
 define('DDS_MID_SERVICE_NAME', 'Testimine');
@@ -67,7 +67,8 @@ function handleIdCardSigningFailure($dds)
         $dds->RemoveSignature(
             array('Sesscode' => SessionHelper::getDdsSessionCode(), 'SignatureId' => $_POST['signature_id'])
         );
-        // trace 'Adding a signature to the container was not completed successfully so the prepared signature was removed from the container in DigiDocService session.'
+        // trace 'Adding a signature to the container was not completed successfully so the prepared signature
+        // was removed from the container in DigiDocService session.'
     }
 }
 
@@ -113,8 +114,6 @@ function prepareMobileSign($dds, $response)
 {
     $phoneNumber = trim($_POST['phoneNo']);
     $identityCode = trim($_POST['idCode']);
-
-    // trace 'User started the process of signing with MID. Mobile phone is \''.$phoneNumber.'\' and ID code is \''.$identityCode.'\'.'
 
     // In actual live situation, the language could be taken from the users customer database for example.
     $language = 'EST';
@@ -178,115 +177,115 @@ function mobileSignSuccessResponse($dds, $response)
 // RUN
 
 switch ($_POST['request_act']) {
-	case 'ID_SIGN_CREATE_HASH':
-		header('Content-Type: application/json');
-		$response = array();
-		try {
-			// trace 'User started the preparation of signature with ID Card to the container.'
-		    if (!array_key_exists('signersCertificateHEX', $_POST)) {
-		        throw new InvalidArgumentException('There were missing parameters which are needed to sign with ID Card.');
-		    }
+    case 'ID_SIGN_CREATE_HASH':
+        header('Content-Type: application/json');
+        $response = array();
+        try {
+            // trace 'User started the preparation of signature with ID Card to the container.'
+            if (!array_key_exists('signersCertificateHEX', $_POST)) {
+                throw new InvalidArgumentException('There were missing parameters which are needed to sign with ID Card.');
+            }
 
-		    // Let's prepare the parameters for PrepareSignature method.
-		    $prepareSignatureReqParams['Sesscode'] = SessionHelper::getDdsSessionCode();
-		    $prepareSignatureReqParams['SignersCertificate'] = $_POST['signersCertificateHEX'];
-		    $prepareSignatureReqParams['SignersTokenId'] = '';
+            // Let's prepare the parameters for PrepareSignature method.
+            $prepareSignatureReqParams['Sesscode'] = SessionHelper::getDdsSessionCode();
+            $prepareSignatureReqParams['SignersCertificate'] = $_POST['signersCertificateHEX'];
+            $prepareSignatureReqParams['SignersTokenId'] = '';
 
-		    array_merge($prepareSignatureReqParams, getPrepareSignatureParameters($_POST));
-		    $prepareSignatureReqParams['SigningProfile'] = '';
+            array_merge($prepareSignatureReqParams, getPrepareSignatureParameters($_POST));
+            $prepareSignatureReqParams['SigningProfile'] = '';
 
-		    // Invoke PrepareSignature.
-		    $prepareSignatureResponse = $dds->PrepareSignature($prepareSignatureReqParams);
+            // Invoke PrepareSignature.
+            $prepareSignatureResponse = $dds->PrepareSignature($prepareSignatureReqParams);
 
-		    // If we reach here then everything must be OK with the signature preparation.
-		    $response['signature_info_digest'] = $prepareSignatureResponse['SignedInfoDigest'];
-		    $response['signature_id'] = $prepareSignatureResponse['SignatureId'];
-		    $response['signature_hash_type'] = CertificateHelper::getHashType($response['signature_info_digest']);
-		    $response['is_success'] = true;
-		} catch (Exception $e) {
-		    $code = $e->getCode();
-		    $message = (!!$code ? $code.': ' : '').$e->getMessage();
-		    // trace $message
-		    $response['error_message'] = $message;
-		}
-		echo json_encode($response);
-	break;
-	case 'ID_SIGN_COMPLETE':
-	    // Check if there was any kind of error during ID Card signing.
-	    if (array_key_exists('error_message', $_POST)) {
-	        handleIdCardSigningFailure($dds);
-	    } else {
-	        handleIdCardSigningSuccess($dds);
-	    }
+            // If we reach here then everything must be OK with the signature preparation.
+            $response['signature_info_digest'] = $prepareSignatureResponse['SignedInfoDigest'];
+            $response['signature_id'] = $prepareSignatureResponse['SignatureId'];
+            $response['signature_hash_type'] = CertificateHelper::getHashType($response['signature_info_digest']);
+            $response['is_success'] = true;
+        } catch (Exception $e) {
+            $code = $e->getCode();
+            $message = (!!$code ? $code.': ' : '').$e->getMessage();
+            // trace $message
+            $response['error_message'] = $message;
+        }
+        echo json_encode($response);
+        break;
+    case 'ID_SIGN_COMPLETE':
+        // Check if there was any kind of error during ID Card signing.
+        if (array_key_exists('error_message', $_POST)) {
+            handleIdCardSigningFailure($dds);
+        } else {
+            handleIdCardSigningSuccess($dds);
+        }
 
-	    if (!array_key_exists('error_message', $_POST)) {
-	        // trace 'User successfully added a signature with ID Card to the container.'
+        if (!array_key_exists('error_message', $_POST)) {
+            // trace 'User successfully added a signature with ID Card to the container.'
 
-	        $path_to_created_container=SessionHelper::getUploadDirectory().DIRECTORY_SEPARATOR.SessionHelper::getOriginalContainerName();
-	        $link=str_replace($cfgBaseDirectory, $cfgBaseUrl, $path_to_created_container);
-   			echo "<a href='$link' target=_blank download>$link</a>";
-	    }
-	break;
-	case 'MID_SIGN':
-		header('Content-Type: application/json');
-		$response = array();
-		try {
-		    if (!array_key_exists('subAct', $_POST)) {
-		        throw new HttpInvalidParamException('There are missing parameters which are needed to sign with MID.');
-		    }
+            $path_to_created_container=SessionHelper::getUploadDirectory().DIRECTORY_SEPARATOR.SessionHelper::getOriginalContainerName();
+            $link=str_replace($cfgBaseDirectory, $cfgBaseUrl, $path_to_created_container);
+            echo "<a href='$link' target=_blank download>$link</a>";
+        }
+        break;
+    case 'MID_SIGN':
+        header('Content-Type: application/json');
+        $response = array();
+        try {
+            if (!array_key_exists('subAct', $_POST)) {
+                throw new HttpInvalidParamException('There are missing parameters which are needed to sign with MID.');
+            }
 
-		    $subAction = $_POST['subAct'];
-		    if ($subAction === 'START_SIGNING') {
-		        if (!array_key_exists('phoneNo', $_POST) || !array_key_exists('idCode', $_POST)) {
-		            throw new HttpInvalidParamException('There were missing parameters which are needed to sign with MID.');
-		        }
+            $subAction = $_POST['subAct'];
+            if ($subAction === 'START_SIGNING') {
+                if (!array_key_exists('phoneNo', $_POST) || !array_key_exists('idCode', $_POST)) {
+                    throw new HttpInvalidParamException('There were missing parameters which are needed to sign with MID.');
+                }
 
-		        $response = prepareMobileSign($dds, $response);
-		    }
+                $response = prepareMobileSign($dds, $response);
+            }
 
-		    if ($subAction === 'GET_SIGNING_STATUS') {
-		        $statusResponse = $dds->GetStatusInfo(
-		            array(
-		                'Sesscode'      => SessionHelper::getDdsSessionCode(),
-		                'ReturnDocInfo' => false,
-		                'WaitSignature' => false,
-		            )
-		        );
+            if ($subAction === 'GET_SIGNING_STATUS') {
+                $statusResponse = $dds->GetStatusInfo(
+                    array(
+                        'Sesscode'      => SessionHelper::getDdsSessionCode(),
+                        'ReturnDocInfo' => false,
+                        'WaitSignature' => false,
+                    )
+                );
 
-		        $statusCode = $statusResponse['StatusCode'];
-		        // trace "User is asking about the status of mobile signing. The status is '$statusCode'.";
+                $statusCode = $statusResponse['StatusCode'];
+                // trace "User is asking about the status of mobile signing. The status is '$statusCode'.";
 
-		        $success = $statusCode === 'SIGNATURE';
-		        if ($success) {
-		            $response = mobileSignSuccessResponse($dds, $response);
-		        } elseif ($statusCode !== 'REQUEST_OK' && $statusCode !== 'OUTSTANDING_TRANSACTION') {
-		            //Process has finished unsuccessfully.
-		            handleMobileSignError($dds, $statusCode);
-		        }
-		    }
-		} catch (Exception $e) {
-		    $code = $e->getCode();
-		    $message = ((bool) $code ? $code.': ' : '').$e->getMessage();
-		    // trace $message;
-		    $response['error_message'] = $message;
-		}
+                $success = $statusCode === 'SIGNATURE';
+                if ($success) {
+                    $response = mobileSignSuccessResponse($dds, $response);
+                } elseif ($statusCode !== 'REQUEST_OK' && $statusCode !== 'OUTSTANDING_TRANSACTION') {
+                    //Process has finished unsuccessfully.
+                    handleMobileSignError($dds, $statusCode);
+                }
+            }
+        } catch (Exception $e) {
+            $code = $e->getCode();
+            $message = ((bool) $code ? $code.': ' : '').$e->getMessage();
+            // trace $message;
+            $response['error_message'] = $message;
+        }
 
-		echo json_encode($response);
-	break;
-	case 'MID_SIGN_COMPLETE':
-	    // Check if there was any kind of error during MID signing.
-	    if (array_key_exists('error_message', $_POST)) {
-	        echo("<p class=\"alert alert-danger\">".$_POST['error_message'].'</p>');
-	    }
+        echo json_encode($response);
+        break;
+    case 'MID_SIGN_COMPLETE':
+        // Check if there was any kind of error during MID signing.
+        if (array_key_exists('error_message', $_POST)) {
+            echo("<p class=\"alert alert-danger\">".$_POST['error_message'].'</p>');
+        }
 
-	    if (!array_key_exists('error_message', $_POST)) {
-	        // trace 'User successfully added a signature with Mobile ID to the container.';
+        if (!array_key_exists('error_message', $_POST)) {
+            // trace 'User successfully added a signature with Mobile ID to the container.';
 
-	        $path_to_created_container=SessionHelper::getUploadDirectory().DIRECTORY_SEPARATOR.SessionHelper::getOriginalContainerName();
-	        $link=str_replace($cfgBaseDirectory, $cfgBaseUrl, $path_to_created_container);
-   			echo "<a href='$link' target=_blank download>$link</a>";
-	    }
-	break;
+            $path_to_created_container=SessionHelper::getUploadDirectory().DIRECTORY_SEPARATOR.SessionHelper::getOriginalContainerName();
+            $link=str_replace($cfgBaseDirectory, $cfgBaseUrl, $path_to_created_container);
+            echo "<a href='$link' target=_blank download>$link</a>";
+        }
+        break;
 }
 
 DocHelper::persistHashcodeSession();
