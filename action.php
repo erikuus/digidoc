@@ -223,7 +223,7 @@ switch ($_POST['request_act']) {
 	        // trace 'User successfully added a signature with ID Card to the container.'
 
 	        $path_to_created_container=SessionHelper::getUploadDirectory().DIRECTORY_SEPARATOR.SessionHelper::getOriginalContainerName();
-	        $link=str_replace('/var/www/html/apps', 'https://www.ra.ee/apps', $path_to_created_container);
+	        $link=str_replace($cfgBaseDirectory, $cfgBaseUrl, $path_to_created_container);
    			echo "<a href='$link' target=_blank download>$link</a>";
 	    }
 	break;
@@ -283,7 +283,7 @@ switch ($_POST['request_act']) {
 	        // trace 'User successfully added a signature with Mobile ID to the container.';
 
 	        $path_to_created_container=SessionHelper::getUploadDirectory().DIRECTORY_SEPARATOR.SessionHelper::getOriginalContainerName();
-	        $link=str_replace('/var/www/html/apps', 'https://www.ra.ee/apps', $path_to_created_container);
+	        $link=str_replace($cfgBaseDirectory, $cfgBaseUrl, $path_to_created_container);
    			echo "<a href='$link' target=_blank download>$link</a>";
 	    }
 	break;

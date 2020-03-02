@@ -21,8 +21,8 @@ date_default_timezone_set('Europe/Tallinn');
 
 // Set variables
 $sourceFiles=array(
-	'C:\inetpub\wwwroot\var\id2\upload\img.jpg'=>'image/jpeg',
-	'C:\inetpub\wwwroot\var\id2\upload\doc.pdf'=>'application/pdf'
+	'C:\inetpub\wwwroot\digidoc\img.jpg'=>'image/jpeg',
+	'C:\inetpub\wwwroot\digidoc\doc.pdf'=>'application/pdf'
 );
 $format = 'BDOC';
 $version = '2.1';
