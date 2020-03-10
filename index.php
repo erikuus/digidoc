@@ -21,10 +21,7 @@ require_once __DIR__.'/sk/hashcode-lib/FileSystemDataFile.php';
 date_default_timezone_set('Europe/Tallinn');
 
 // Set variables
-$sourceFiles=array(
-    'C:\inetpub\wwwroot\digidoc\img.jpg'=>'image/jpeg',
-    'C:\inetpub\wwwroot\digidoc\doc.pdf'=>'application/pdf'
-);
+$sourceFiles=$cfgSourceFiles;
 $format = 'BDOC';
 $version = '2.1';
 
@@ -95,7 +92,7 @@ $pathToContainer=DocHelper::createContainerWithFiles($containerData, $datafiles)
 <h1>Digiallkirjastamise minimalistlik näidisrakendus</h1>
 
 <p>Allkirjastatakse kaks faili (img.jpg ja doc.pdf), mis asuvad serveris.
-Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID serifikaadid registreerima:
+Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID sertifikaadid registreerima:
 <a href="https://demo.sk.ee/upload_cert/" target="_blank">ID-kaart</a>,
 <a href="https://demo.sk.ee/MIDCertsReg/" target="_blank">Mobiil-ID</a>
 </p>

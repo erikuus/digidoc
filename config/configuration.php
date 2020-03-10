@@ -15,3 +15,10 @@ $cfgBaseDirectory='C:\inetpub\wwwroot\digidoc';
  * Web host
  */
 $cfgBaseUrl='https://localhost/digidoc';
+/**
+ * Source files
+ */
+$cfgSourceFiles=array(
+	'C:\inetpub\wwwroot\digidoc\img.jpg'=>'image/jpeg',
+	'C:\inetpub\wwwroot\digidoc\doc.pdf'=>'application/pdf'
+);
