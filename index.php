@@ -1,6 +1,6 @@
 <?php
 
-// NOTE PHP5.6 throws error, PHP5.3 is OK
+// NOTE PHP5.6 throws error
 // SEE https://stackoverflow.com/questions/4318870/soapfault-exception-could-not-connect-to-host
 
 ini_set('display_errors', 'On');
@@ -92,7 +92,7 @@ $pathToContainer=DocHelper::createContainerWithFiles($containerData, $datafiles)
 <h1>Digiallkirjastamise minimalistlik näidisrakendus</h1>
 
 <p>Allkirjastatakse kaks faili (img.jpg ja doc.pdf), mis asuvad serveris.
-Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID sertifikaadid registreerima:
+Testimiseks peate oma ID-kaardi ja mobiil-ID sertifikaadid registreerima:
 <a href="https://demo.sk.ee/upload_cert/" target="_blank">ID-kaart</a>,
 <a href="https://demo.sk.ee/MIDCertsReg/" target="_blank">Mobiil-ID</a>
 </p>
@@ -135,16 +135,11 @@ Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID sertifikaadid regi
 <br />
 <br />
 
-
 <div id="mobileSignModalHeader">
     <h4>Allkirjasta Mobiil-ID'ga</h4>
 </div>
 <div class="mobileSignModalContent">
     <div id="mobileSignErrorContainer" style="display: none;"></div>
-    <p>
-        NB! Phone number must start with country prefix. <br>
-        Example: +37212345678
-    </p>
     <p>
         NB! Telefoninumber peab algama riigi koodiga. <br>
         Näiteks: +37212345678
