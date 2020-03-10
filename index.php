@@ -98,26 +98,26 @@ Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID sertifikaadid regi
 </p>
 
 <div id="idSignModalHeader">
-    <h4>Allkirjasta ID-kaardiga/Sign the document with ID Card</h4>
+    <h4>Allkirjasta ID-kaardiga</h4>
 </div>
 <div class="idSignModalContent">
     <div id="idSignModalErrorContainer" style="display: none;"></div>
     <table>
          <tbody>
              <tr>
-                 <td><label for="idSignCity">Linn/City:</label></td>
+                 <td><label for="idSignCity">Linn:</label></td>
                  <td><input id="idSignCity" type="text"></td>
              </tr>
              <tr>
-                 <td><label for="idSignState">Maakond/State:</label></td>
+                 <td><label for="idSignState">Maakond:</label></td>
                  <td><input id="idSignState" type="text"></td>
              </tr>
              <tr>
-                 <td><label for="idSignCountry">Riik/Country:</label></td>
+                 <td><label for="idSignCountry">Riik:</label></td>
                  <td><input id="idSignCountry" type="text"></td>
              </tr>
              <tr>
-                 <td><label for="idSignPostalCode">Postikood/Postal Code:</label></td>
+                 <td><label for="idSignPostalCode">Postikood:</label></td>
                  <td><input id="idSignPostalCode" type="text"></td>
              </tr>
              <tr>
@@ -129,7 +129,7 @@ Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID sertifikaadid regi
 </div>
 <div id="idSignModalFooter">
     <input type="hidden" name="_token" value="">
-    <button type="button" onclick="ee.sk.hashcode.IDCardSign()">Allkirjasta/Sign the document</button>
+    <button type="button" onclick="ee.sk.hashcode.IDCardSign()">Allkirjasta</button>
 </div>
 
 <br />
@@ -152,11 +152,11 @@ Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID sertifikaadid regi
     <table>
         <tbody>
             <tr>
-                <td><label for="mid_PhoneNumber">Telefoninumber/Mobile phone number:</label></td>
+                <td><label for="mid_PhoneNumber">Telefoninumber:</label></td>
                 <td><input id="mid_PhoneNumber" type="text"></td>
             </tr>
             <tr>
-                <td><label for="mid_idCode">Isikukood/Social security number:</label></td>
+                <td><label for="mid_idCode">Isikukood:</label></td>
                 <td><input id="mid_idCode" type="text"></td>
             </tr>
         </tbody>
@@ -164,7 +164,7 @@ Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID sertifikaadid regi
 </div>
 <div id="mobileSignModalFooter">
     <input type="hidden" name="_token" value="">
-    <button type="button" onclick="ee.sk.hashcode.StartMobileSign()">Allkirjasta/Sign the document</button>
+    <button type="button" onclick="ee.sk.hashcode.StartMobileSign()">Allkirjasta</button>
 </div>
 
 </body>
