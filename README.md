@@ -5,7 +5,7 @@ DigiDocService kaudu. See on loodud ainult vahendiks, mille abil saab luua vasta
 
 Failide üleslaadimist ei ole. Allkirjastatakse kaks faili (_img.jpg_ ja _doc.pdf_), mis asuvad veebiserveris. 
 
-Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID serifikaadid registreerima: 
+Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID sertifikaadid registreerima: 
 - https://demo.sk.ee/upload_cert/
 - https://demo.sk.ee/MIDCertsReg/
 
