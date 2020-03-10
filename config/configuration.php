@@ -10,8 +10,8 @@ $cfgUploadDirectory=dirname(__DIR__).DIRECTORY_SEPARATOR.'upload'.DIRECTORY_SEPA
 /**
  * Web root dir
  */
-$cfgBaseDirectory='C:\inetpub\wwwroot';
+$cfgBaseDirectory='C:\inetpub\wwwroot\digidoc';
 /**
  * Web host
  */
-$cfgBaseUrl='https://localhost';
+$cfgBaseUrl='https://localhost/digidoc';

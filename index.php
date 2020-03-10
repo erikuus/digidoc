@@ -92,7 +92,7 @@ $pathToContainer=DocHelper::createContainerWithFiles($containerData, $datafiles)
 </head>
 <body>
 
-<h1>Digiallikirjastamise minimalistlik näidisrakendus</h1>
+<h1>Digiallkirjastamise minimalistlik näidisrakendus</h1>
 
 <p>Allkirjastatakse kaks faili (img.jpg ja doc.pdf), mis asuvad serveris.
 Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID serifikaadid registreerima:
