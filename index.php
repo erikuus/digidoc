@@ -1,4 +1,5 @@
 <?php
+
 // NOTE PHP5.6 throws error, PHP5.3 is OK
 // SEE https://stackoverflow.com/questions/4318870/soapfault-exception-could-not-connect-to-host
 
@@ -64,8 +65,6 @@ if (strpos($containerData, 'SignedDoc') === false) {
 
 // Rewrite the local container with new content
 $pathToContainer=DocHelper::createContainerWithFiles($containerData, $datafiles);
-
-// debug "Container created $path_to_created_container, datafile added and session started with hashcode form of container. DDS session ID: '$ddsSessionCode'.";
 ?>
 
 <html lang="en"><head>
@@ -92,6 +91,14 @@ $pathToContainer=DocHelper::createContainerWithFiles($containerData, $datafiles)
     <title>Digiallkirjastamine</title>
 </head>
 <body>
+
+<h1>Digiallikirjastamise minimalistlik näidisrakendus</h1>
+
+<p>Allkirjastatakse kaks faili (img.jpg ja doc.pdf), mis asuvad serveris.
+Digitaalallkirja testimiseks peate oma ID-kaardi ja mobiil-ID serifikaadid registreerima:
+<a href="https://demo.sk.ee/upload_cert/" target="_blank">ID-kaart</a>,
+<a href="https://demo.sk.ee/MIDCertsReg/" target="_blank">Mobiil-ID</a>
+</p>
 
 <div id="idSignModalHeader">
     <h4>Allkirjasta ID-kaardiga/Sign the document with ID Card</h4>
@@ -128,7 +135,9 @@ $pathToContainer=DocHelper::createContainerWithFiles($containerData, $datafiles)
     <button type="button" onclick="ee.sk.hashcode.IDCardSign()">Allkirjasta/Sign the document</button>
 </div>
 
-<hr />
+<br />
+<br />
+
 
 <div id="mobileSignModalHeader">
     <h4>Allkirjasta Mobiil-ID'ga</h4>
